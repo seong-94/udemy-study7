@@ -5,19 +5,29 @@ export default function Login() {
     email: "",
     password: "",
   });
-
+  const [editing, setEditing] = useState({ email: false, password: false });
   function handleSubmit(event) {
     event.preventDefault();
   }
   function handleInputChange(identifier, value) {
     setEnterValue((prevValues) => ({
       ...prevValues,
-      [identifier]: event.target.value,
+      [identifier]: value,
+    }));
+    setEditing((prevEdit) => ({
+      ...prevEdit,
+      [identifier]: false,
     }));
   }
 
-  const emailInvalid = enterValue.email !== "" && !enterValue.email.includes("@");
+  const emailIsInvalid = editing.email && !enterValue.email.includes("@");
 
+  function handleEmailValid(identifier) {
+    setEditing((prevEdit) => ({
+      ...prevEdit,
+      [identifier]: !emailIsInvalid,
+    }));
+  }
   // function handleEmailChange() {
   //   setEnterValue(event.target.value);
   // }
@@ -35,10 +45,11 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
+            onBlur={() => handleEmailValid("email")}
             onChange={() => handleInputChange("email", event.target.value)}
             value={enterValue.email}
           />
-          <div className="control-error">{emailInvalid && <p>Please enter a valid Email</p>}</div>
+          <div className="control-error">{emailIsInvalid && <p>Please enter a valid Email</p>}</div>
         </div>
 
         <div className="control no-margin">
@@ -50,6 +61,9 @@ export default function Login() {
             onChange={() => handleInputChange("password", event.target.value)}
             value={enterValue.password}
           />
+          <div className="control-error">
+            {editing.password && <p>Please enter a valid PassWord</p>}
+          </div>
         </div>
       </div>
 
