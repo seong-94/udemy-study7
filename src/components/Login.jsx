@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CustomInput from "./CustomInput";
 
 export default function Login() {
   const [enterValue, setEnterValue] = useState({
@@ -39,32 +40,24 @@ export default function Login() {
       <h2>Login</h2>
 
       <div className="control-row">
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            onBlur={() => handleEmailValid("email")}
-            onChange={() => handleInputChange("email", event.target.value)}
-            value={enterValue.email}
-          />
-          <div className="control-error">{emailIsInvalid && <p>Please enter a valid Email</p>}</div>
-        </div>
-
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            onChange={() => handleInputChange("password", event.target.value)}
-            value={enterValue.password}
-          />
-          <div className="control-error">
-            {editing.password && <p>Please enter a valid PassWord</p>}
-          </div>
-        </div>
+        <CustomInput
+          label="Email"
+          id="email"
+          type="email"
+          name="email"
+          onBlur={() => handleEmailValid("email")}
+          onChange={() => handleInputChange("email", event.target.value)}
+          value={enterValue.email}
+        />
+        <CustomInput
+          label="Password"
+          id="Password"
+          type="Password"
+          name="Password"
+          onBlur={() => handleEmailValid("Password")}
+          onChange={() => handleInputChange("Password", event.target.value)}
+          value={enterValue.Password}
+        />
       </div>
 
       <p className="form-actions">
