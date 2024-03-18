@@ -22,6 +22,7 @@ export default function Login() {
   }
 
   const emailIsInvalid = editing.email && !enterValue.email.includes("@");
+  const PasswordIsInvalid = editing.password && !enterValue.password.length > 6;
 
   function handleEmailValid(identifier) {
     setEditing((prevEdit) => ({
@@ -48,6 +49,7 @@ export default function Login() {
           onBlur={() => handleEmailValid("email")}
           onChange={() => handleInputChange("email", event.target.value)}
           value={enterValue.email}
+          error={emailIsInvalid && "Please enter a valid email"}
         />
         <CustomInput
           label="Password"
@@ -57,6 +59,7 @@ export default function Login() {
           onBlur={() => handleEmailValid("Password")}
           onChange={() => handleInputChange("Password", event.target.value)}
           value={enterValue.Password}
+          error={PasswordIsInvalid && "Please enter a valid password"}
         />
       </div>
 
